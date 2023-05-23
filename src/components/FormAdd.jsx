@@ -4,6 +4,10 @@ const FormAdd = ({ handleChange, handleSubmit, inputValue }) => {
       onSubmit={handleSubmit}
       className='flex items-center gap-4 mt-16 mb-8'
     >
+    <form
+      onSubmit={handleSubmit}
+      className='flex items-center gap-4 mt-16 mb-8'
+    >
       <input
         type='text'
         onChange={handleChange}
@@ -11,6 +15,10 @@ const FormAdd = ({ handleChange, handleSubmit, inputValue }) => {
         placeholder='What to do'
         className='flex-1 h-[40px] border-2 border-slate-400 rounded-sm px-2'
       />
+      <button
+        type='submit'
+        className='py-2 px-4 bg-indigo-400 hover:bg-indigo-500 rounded-sm text-white'
+      >
       <button
         type='submit'
         className='py-2 px-4 bg-indigo-400 hover:bg-indigo-500 rounded-sm text-white'

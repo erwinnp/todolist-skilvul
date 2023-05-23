@@ -49,7 +49,7 @@ const Todos = () => {
   };
 
   return (
-    <main className='w-screen flex flex-col justify-center items-center mt-14'>
+    <main className='w-full flex flex-col justify-center items-center mt-14'>
       <div className='flex flex-col gap-8'>
         <h1 className='text-3xl font-semibold'>What's the plan for today?</h1>
         <FormAdd
@@ -58,6 +58,9 @@ const Todos = () => {
           inputValue={inputTodo}
         />
         <div className='flex gap-6'>
+          <ButtonFilter action={handleAll} name='All' />
+          <ButtonFilter action={handleActive} name='Active' />
+          <ButtonFilter action={handleCompleted} name='Completed' />
           <ButtonFilter action={handleAll} name='All' />
           <ButtonFilter action={handleActive} name='Active' />
           <ButtonFilter action={handleCompleted} name='Completed' />
