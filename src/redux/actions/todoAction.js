@@ -43,3 +43,19 @@ export const deleteTodo = (id) => {
     dispatch(getTodo());
   };
 };
+
+export const chekedTodo = (id, done) => {
+  return async (dispatch) => {
+    await axios.put(`${urlAPI}/todolists/${id}`, done);
+
+    dispatch(getTodo());
+  };
+};
+
+export const editTodo = (id, edited) => {
+  return async (dispatch) => {
+    await axios.put(`${urlAPI}/todolists/${id}`, edited);
+
+    dispatch(getTodo());
+  };
+};
