@@ -61,20 +61,8 @@ const Todos = () => {
           <ButtonFilter action={handleAll} name='All' />
           <ButtonFilter action={handleActive} name='Active' />
           <ButtonFilter action={handleCompleted} name='Completed' />
-          <ButtonFilter action={handleAll} name='All' />
-          <ButtonFilter action={handleActive} name='Active' />
-          <ButtonFilter action={handleCompleted} name='Completed' />
         </div>
         <div className='flex flex-col gap-6'>
-          {/* {todos?.map((list, i) => (
-            <TodoItem
-              key={i}
-              todoTitle={list.todo}
-              todoStatus={list.isDone}
-              actionDelete={() => handleDeleteTodo(list.id)}
-              actionMark={() => handleMarkTodo(list.id)}
-            />
-          ))} */}
           {sort === 'all' ? (
             todos.map((list, i) => (
               <TodoItem

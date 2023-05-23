@@ -6,10 +6,9 @@ const TodoItem = ({ todoStatus, todoTitle, actionDelete, actionMark }) => {
       <div className='flex items-center gap-4'>
         <input
           type='checkbox'
-          defaultChecked={todoStatus}
+          checked={todoStatus}
           onClick={actionMark}
           className='w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded'
-          onClick={toggleTodo}
         />
         {todoStatus ? (
           <label className='text-xl line-through'>{todoTitle}</label>
