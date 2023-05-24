@@ -20,7 +20,7 @@ const todoReducer = (state = initialState, action) => {
           if (todo.id === action.payload) {
             return {
               ...todo,
-              isDone: true,
+              isDone: !todo.isDone,
             };
           }
           return todo;

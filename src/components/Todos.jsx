@@ -8,6 +8,10 @@ import TodoItem from './TodoItem';
 const Todos = () => {
   const { todos } = useSelector((state) => state.todoReducer);
   const [inputTodo, setInputTodo] = useState('');
+  const [warning, setWarning] = useState({
+    isDisplay: false,
+    text: '',
+  });
   const dispatch = useDispatch();
 
   const handleChangeInput = (e) => {
@@ -16,14 +20,25 @@ const Todos = () => {
 
   const handleAddTodo = (e) => {
     e.preventDefault();
-    const newTodo = {
-      id: Date.now(),
-      todo: inputTodo,
-      isDone: false,
-    };
+    if (inputTodo === '') {
+      setWarning({
+        isDisplay: true,
+        text: 'Field tidak boleh kosong!',
+      });
+    } else {
+      const newTodo = {
+        id: Date.now(),
+        todo: inputTodo,
+        isDone: false,
+      };
 
-    dispatch(addNewTodo(newTodo));
-    setInputTodo('');
+      dispatch(addNewTodo(newTodo));
+      setInputTodo('');
+      setWarning({
+        isDisplay: false,
+        text: '',
+      });
+    }
   };
 
   const handleDeleteTodo = (id) => {
@@ -50,20 +65,29 @@ const Todos = () => {
 
   return (
     <main className='w-full flex flex-col justify-center items-center mt-14'>
-      <div className='flex flex-col gap-8'>
-        <h1 className='text-3xl font-semibold'>What's the plan for today?</h1>
-        <FormAdd
-          handleChange={handleChangeInput}
-          handleSubmit={handleAddTodo}
-          inputValue={inputTodo}
-        />
+      <div className='flex flex-col gap-8 w-1/3'>
+        <h1 className='text-3xl font-semibold text-center'>
+          What's the plan for today?
+        </h1>
+        <div>
+          <FormAdd
+            handleChange={handleChangeInput}
+            handleSubmit={handleAddTodo}
+            inputValue={inputTodo}
+          />
+          {warning.isDisplay ? (
+            <p className='text-rose-700 font-semibold'>{warning.text}</p>
+          ) : null}
+        </div>
         <div className='flex gap-6'>
           <ButtonFilter action={handleAll} name='All' />
           <ButtonFilter action={handleActive} name='Active' />
           <ButtonFilter action={handleCompleted} name='Completed' />
         </div>
         <div className='flex flex-col gap-6'>
-          {sort === 'all' ? (
+          {todos.length <= 0 ? (
+            <p>Todo is empty!</p>
+          ) : sort === 'all' ? (
             todos.map((list, i) => (
               <TodoItem
                 key={i}
@@ -99,9 +123,7 @@ const Todos = () => {
                   />
                 )
             )
-          ) : (
-            <p>Todo is empty!</p>
-          )}
+          ) : null}
         </div>
       </div>
     </main>
