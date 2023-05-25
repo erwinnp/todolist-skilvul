@@ -1,8 +1,20 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTodo } from '../store/features/todoSlice';
 import ButtonFilter from './ButtonFilter';
 import FormAdd from './FormAdd';
 import TodoItem from './TodoItem';
 
 const Todos = () => {
+  const dataTodo = useSelector((state) => state.todos.todos);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchTodo());
+  }, [dispatch]);
+
+  console.log(dataTodo);
+
   return (
     <main className='w-screen flex flex-col justify-center items-center mt-14'>
       <div className='flex flex-col gap-8'>
@@ -14,9 +26,13 @@ const Todos = () => {
           <ButtonFilter name='Completed' />
         </div>
         <div className='flex flex-col gap-6'>
-          <TodoItem todoStatus={true} todoTitle='Todo 1' />
-          <TodoItem todoStatus={true} todoTitle='Todo 2' />
-          <TodoItem todoStatus={false} todoTitle='Todo 3' />
+          {dataTodo.map((todo, index) => (
+            <TodoItem
+              key={index}
+              todoStatus={todo.isDone}
+              todoTitle={todo.title}
+            />
+          ))}
         </div>
       </div>
     </main>
