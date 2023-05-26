@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addNewTodo, updateTodo } from '../redux/actions/todoActions';
+import PropTypes from 'prop-types';
 
 const TodoForm = ({ isEditForm, editTodo, cancelUpdate }) => {
   const dispatch = useDispatch();
@@ -98,6 +99,11 @@ const TodoForm = ({ isEditForm, editTodo, cancelUpdate }) => {
       ) : null}
     </>
   );
+};
+
+TodoForm.propTypes = {
+  isEditForm: PropTypes.bool,
+  cancelUpdate: PropTypes.func,
 };
 
 export default TodoForm;

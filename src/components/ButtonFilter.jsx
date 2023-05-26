@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const ButtonFilter = ({ name, action }) => {
   return (
     <button
@@ -7,6 +9,11 @@ const ButtonFilter = ({ name, action }) => {
       {name}
     </button>
   );
+};
+
+ButtonFilter.propTypes = {
+  name: PropTypes.string,
+  action: PropTypes.func,
 };
 
 export default ButtonFilter;

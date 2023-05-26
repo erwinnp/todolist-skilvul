@@ -1,4 +1,5 @@
 import { HiPencilAlt, HiTrash } from 'react-icons/hi';
+import PropTypes from 'prop-types';
 
 const TodoItem = ({
   todoStatus,
@@ -28,6 +29,14 @@ const TodoItem = ({
       </div>
     </section>
   );
+};
+
+TodoItem.propTypes = {
+  todoStatus: PropTypes.bool,
+  todoTitle: PropTypes.string,
+  actionDelete: PropTypes.func,
+  actionEdit: PropTypes.func,
+  actionMark: PropTypes.func,
 };
 
 export default TodoItem;
