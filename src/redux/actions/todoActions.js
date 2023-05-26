@@ -1,7 +1,6 @@
 import {
   ADD_TODO,
   DELETE_TODO,
-  EDIT_TODO,
   UPDATE_TODO,
   MARK_COMPLETED,
 } from './actionTypes';
@@ -24,5 +23,12 @@ export const markTodo = (id) => {
   return {
     type: MARK_COMPLETED,
     payload: id,
+  };
+};
+
+export const updateTodo = (editedTodo) => {
+  return {
+    type: UPDATE_TODO,
+    payload: editedTodo,
   };
 };

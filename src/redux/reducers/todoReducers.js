@@ -1,4 +1,9 @@
-import { ADD_TODO, DELETE_TODO, MARK_COMPLETED } from '../actions/actionTypes';
+import {
+  ADD_TODO,
+  DELETE_TODO,
+  MARK_COMPLETED,
+  UPDATE_TODO,
+} from '../actions/actionTypes';
 
 const initialState = {
   todos: [],
@@ -24,6 +29,18 @@ const todoReducer = (state = initialState, action) => {
             };
           }
           return todo;
+        }),
+      };
+    case UPDATE_TODO:
+      return {
+        todos: state.todos.map((todoUpdated) => {
+          if (todoUpdated.id === action.payload.id) {
+            return {
+              ...todoUpdated,
+              todo: action.payload.todo,
+            };
+          }
+          return todoUpdated;
         }),
       };
     default:

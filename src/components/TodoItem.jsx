@@ -1,6 +1,12 @@
 import { HiPencilAlt, HiTrash } from 'react-icons/hi';
 
-const TodoItem = ({ todoStatus, todoTitle, actionDelete, actionMark }) => {
+const TodoItem = ({
+  todoStatus,
+  todoTitle,
+  actionDelete,
+  actionMark,
+  actionEdit,
+}) => {
   return (
     <section className='flex justify-between items-center px-2 py-3.5 border-2 border-slate-300'>
       <div className='flex items-center gap-4'>
@@ -17,7 +23,7 @@ const TodoItem = ({ todoStatus, todoTitle, actionDelete, actionMark }) => {
         )}
       </div>
       <div className='flex items-center gap-6'>
-        <HiPencilAlt className='w-6 h-6 cursor-pointer' />
+        <HiPencilAlt onClick={actionEdit} className='w-6 h-6 cursor-pointer' />
         <HiTrash onClick={actionDelete} className='w-6 h-6 cursor-pointer' />
       </div>
     </section>

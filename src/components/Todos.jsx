@@ -1,44 +1,24 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewTodo, deleteTodo, markTodo } from '../redux/actions/todoActions';
+import { deleteTodo, markTodo } from '../redux/actions/todoActions';
 import ButtonFilter from './ButtonFilter';
-import FormAdd from './FormAdd';
+import TodoForm from './TodoForm';
 import TodoItem from './TodoItem';
 
 const Todos = () => {
   const { todos } = useSelector((state) => state.todoReducer);
-  const [inputTodo, setInputTodo] = useState('');
-  const [warning, setWarning] = useState({
-    isDisplay: false,
-    text: '',
-  });
-  const dispatch = useDispatch();
 
-  const handleChangeInput = (e) => {
-    setInputTodo(e.target.value);
+  const dispatch = useDispatch();
+  const [editFormVisibility, setEditFormVisibility] = useState(false);
+  const [editTodoState, setEditTodoState] = useState('');
+
+  const handleEditClick = (todo) => {
+    setEditFormVisibility(true);
+    setEditTodoState(todo);
   };
 
-  const handleAddTodo = (e) => {
-    e.preventDefault();
-    if (inputTodo === '') {
-      setWarning({
-        isDisplay: true,
-        text: 'Field tidak boleh kosong!',
-      });
-    } else {
-      const newTodo = {
-        id: Date.now(),
-        todo: inputTodo,
-        isDone: false,
-      };
-
-      dispatch(addNewTodo(newTodo));
-      setInputTodo('');
-      setWarning({
-        isDisplay: false,
-        text: '',
-      });
-    }
+  const cancelUpdate = () => {
+    setEditFormVisibility(false);
   };
 
   const handleDeleteTodo = (id) => {
@@ -70,14 +50,11 @@ const Todos = () => {
           What's the plan for today?
         </h1>
         <div>
-          <FormAdd
-            handleChange={handleChangeInput}
-            handleSubmit={handleAddTodo}
-            inputValue={inputTodo}
+          <TodoForm
+            isEditForm={editFormVisibility}
+            editTodo={editTodoState}
+            cancelUpdate={cancelUpdate}
           />
-          {warning.isDisplay ? (
-            <p className='text-rose-700 font-semibold'>{warning.text}</p>
-          ) : null}
         </div>
         <div className='flex gap-6'>
           <ButtonFilter action={handleAll} name='All' />
@@ -93,6 +70,7 @@ const Todos = () => {
                 key={i}
                 todoTitle={list.todo}
                 todoStatus={list.isDone}
+                actionEdit={() => handleEditClick(list)}
                 actionDelete={() => handleDeleteTodo(list.id)}
                 actionMark={() => handleMarkTodo(list.id)}
               />
@@ -105,6 +83,7 @@ const Todos = () => {
                     key={i}
                     todoTitle={list.todo}
                     todoStatus={list.isDone}
+                    actionEdit={() => handleEditClick(list)}
                     actionDelete={() => handleDeleteTodo(list.id)}
                     actionMark={() => handleMarkTodo(list.id)}
                   />
@@ -118,6 +97,7 @@ const Todos = () => {
                     key={i}
                     todoTitle={list.todo}
                     todoStatus={list.isDone}
+                    actionEdit={() => handleEditClick(list)}
                     actionDelete={() => handleDeleteTodo(list.id)}
                     actionMark={() => handleMarkTodo(list.id)}
                   />
